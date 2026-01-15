@@ -8,9 +8,12 @@ def append_to_sheet(creds, spreadsheet_id, rows):
         "values": rows
     }
 
-    service.spreadsheets().values().append(
+    result = service.spreadsheets().values().append(
         spreadsheetId=spreadsheet_id,
-        range="Sheet1!A:D",
+        range="New Logs!A2:D",
         valueInputOption="RAW",
+        insertDataOption="INSERT_ROWS",
         body=body
     ).execute()
+
+    print(f"✅ Rows appended to sheet: {result.get('updates', {}).get('updatedRows', 0)}")
